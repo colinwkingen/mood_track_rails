@@ -2,12 +2,13 @@
 <% if current_user.profile  %>
     <h1>Your Dashboard</h1>
     <span id="<%= @profile.id %>"><%= link_to "add day", new_profile_day_path(@profile), class: "btn btn-primary", remote: true %></span>
+    <%= line_chart  [
+        {name: 'Sleep' , data: '4'},
+        {name: 'Energy Level' , data: '6'},
+        {name: 'Energy Level' , data: '1'},
+        {name: 'Money Spent' , data: '2'}
+    ] %>
 
-    <%= timeline [
-  ["Washington", "1789-04-29", "1797-03-03"],
-  ["Adams", "1797-03-03", "1801-03-03"],
-  ["Jefferson", "1801-03-03", "1809-03-03"]
-] %>
 
 <% else %>
     <h1>Create Your Profile</h1>
