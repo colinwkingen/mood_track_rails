@@ -1,0 +1,8 @@
+
+<% if current_user.profile  %>
+    <h1>Your Dashboard</h1>
+
+<% else %>
+    <%= render 'profiles/new' %>
+
+<% end %>
