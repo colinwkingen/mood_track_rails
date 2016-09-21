@@ -1,8 +1,16 @@
 
 <% if current_user.profile  %>
     <h1>Your Dashboard</h1>
+    <span id="<%= @profile.id %>"><%= link_to "add day", new_profile_day_path(@profile), class: "btn btn-primary", remote: true %></span>
+
+    <%= timeline [
+  ["Washington", "1789-04-29", "1797-03-03"],
+  ["Adams", "1797-03-03", "1801-03-03"],
+  ["Jefferson", "1801-03-03", "1809-03-03"]
+] %>
 
 <% else %>
-    <%= render 'profiles/new' %>
+    <h1>Create Your Profile</h1>
+    <span id="<%= @user.id %>_add_profile"><%= link_to "add profile", new_user_profile_path(@user), class: "btn btn-primary", remote: true %></span>
 
 <% end %>

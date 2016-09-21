@@ -1,17 +1,18 @@
 class ProfilesController < ApplicationController
 
   def new
-    @user = current_user
+    @user = User.find(params[:user_id])
     @profile = Profile.new
-    @profile.user_id = current_user.id
   end
 
   def create
     @profile = Profile.new(profile_params)
-    @profile.user_id = current_user.id
+    @profile.user = User.find(current_user)
     if @profile.save
-      flash[:success] = "Profile Added"
-      redirect_to  profiles_path
+      respond_to do |format|
+        format.html { redirect_to root_url }
+        format.js
+      end
     else
       render :new
     end

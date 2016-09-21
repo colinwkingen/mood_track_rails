@@ -3,6 +3,7 @@ before_filter :authenticate_user!
 
   def index
     @user = current_user
+    @profile = @user.profile
     @days = Day.all
   end
 
@@ -11,7 +12,7 @@ before_filter :authenticate_user!
   end
 
   def new
-    @profile = current_user.profile
+    @profile = Profile.find(params[:profile_id])
     @day = Day.new
   end
 
@@ -20,9 +21,10 @@ before_filter :authenticate_user!
     @day.profile_id = current_user.profile.id
     if @day.save
       flash[:success] = "Day Added"
-      redirect_to  days_path
+      redirect_to  root_path
     else
-      render :new
+      flash[:alert] = "Your comment didn't save!"
+      redirect_to root_path
     end
   end
 
