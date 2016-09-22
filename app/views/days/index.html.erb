@@ -2,13 +2,16 @@
 <% if current_user.profile  %>
     <h1>Your Dashboard</h1>
     <span id="<%= @profile.id %>"><%= link_to "add day", new_profile_day_path(@profile), class: "btn btn-primary", remote: true %></span>
-    <%= line_chart  [
-        {name: 'Sleep' , data: '4'},
-        {name: 'Energy Level' , data: '6'},
-        {name: 'Energy Level' , data: '1'},
-        {name: 'Money Spent' , data: '2'}
-    ] %>
 
+
+    <%= bar_chart Day.group(:mood).sum(:energy_level) %>
+
+    <%= line_chart [
+     {name: "Mood", data: Day.all.inject({}) {|res, v| res[v[:created_at]] = v.mood; res }},
+     {name: "Energy Level", data: Day.all.inject({}) {|res, v| res[v[:created_at]] = v.energy_level; res }},
+     {name: "Money Spent", data: Day.all.inject({}) {|res, v| res[v[:created_at]] = v.money_spent; res }},
+     {name: "Sleep", data: Day.all.inject({}) {|res, v| res[v[:created_at]] = v.sleep; res }}
+                 ] %>
 
 <% else %>
     <h1>Create Your Profile</h1>

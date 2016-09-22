@@ -12,6 +12,9 @@
   <%= f.label :energy_level %>
   <%= f.number_field :energy_level, in: 1.0..10.0, step: 0.5 %>
 
+  <%= f.label :date %>
+  <%= f.number_field :date, step: 1 %>
+
   <%= f.label :note %>
   <%= f.text_field :note, class: "form-control" %>
 
